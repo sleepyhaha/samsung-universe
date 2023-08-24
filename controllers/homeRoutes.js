@@ -1,5 +1,11 @@
 const router = require("express").Router();
 
-router.use("/", require("./homeRoutes"));
+// PATH: localhost/
+
+router.get("/", (req, res) => {
+
+
+
+});
 
 module.exports = router;
