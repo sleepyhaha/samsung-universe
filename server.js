@@ -17,7 +17,7 @@ server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 server.use(express.static(path.join(__dirname, "public")));
 
-server.use(require("./routes"));
+server.use(require("./controllers"));
 
 sequelize.sync({ force: false }).then(() => {
 
