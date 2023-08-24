@@ -1,12 +1,15 @@
 const Sequelize = require("sequelize");
-require("dotenv").config();
+
+//TODO: setup dotenv package
+
+// require("dotenv").config();
 
 // process.env.DB_NAME,
 //     process.env.DB_USER,
 //     process.env.DB_PASSWORD,
 
 const sequelize = new Sequelize(
-    "db_name",
+    "name_db",
     "root",
     "root",
     {
