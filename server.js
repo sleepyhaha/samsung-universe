@@ -1,6 +1,6 @@
 const express = require("express");
 const exphbs = require("express-handlebars");
-const sequelize = require("./db/connection.js"); //SQL connection
+const sequelize = require("./config/connection.js"); //SQL connection
 const path = require("path");
 require("./models"); // Import models
 
