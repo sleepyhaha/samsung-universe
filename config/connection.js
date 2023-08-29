@@ -9,7 +9,7 @@ const Sequelize = require("sequelize");
 //     process.env.DB_PASSWORD,
 
 const sequelize = new Sequelize(
-    "name_db",
+    "itinerary_db",
     "root",
     "root",
     {
