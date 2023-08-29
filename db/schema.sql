@@ -1,5 +1,5 @@
-DROP DATABASE IF EXISTS name_db;
+DROP DATABASE IF EXISTS itinerary_db;
 
-CREATE DATABASE name_db;
+CREATE DATABASE itinerary_db;
 
-USE name_db;
+USE itinerary_db;
