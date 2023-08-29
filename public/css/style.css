@@ -1,0 +1,12 @@
+/* Date Icon */
+/* .inset-y-0 {
+    bottom: 0;
+    top: 25px;
+
+} */
+
+#leaveDate,
+#arriveDate {
+    margin: 0px 30px;
+    width: 200px;
+}
