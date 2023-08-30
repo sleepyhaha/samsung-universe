@@ -21,6 +21,8 @@ const Actions = require("../models/Actions");
 // });
 async function createUser(req) {
 
+    // TODO: HASH PASSWORD
+
     const newUser = {
 
         username: req.username,
@@ -57,6 +59,42 @@ async function createItinerary(req) {
     }
 
     await Itinerary.create(newItinerary);
+
+}
+
+// (3) CREATE AN ACTION
+// DESCRIPTION: N/A.
+// EXAMPLE:
+// createAction({
+
+//     itinerariesId: 1,
+//     title: "Forest Trail",
+//     content: "It's a pretty cool forest!",
+//     source_link: "https://www.google.com",
+//     image_01_link: "https://www.amazon.com",
+//     image_02_link: "https://www.facebook.com",
+//     image_03_link: "https://www.youtube.com",
+//     image_04_link: "https://www.reddit.com",
+//     image_05_link: "https://www.twitter.com",
+
+// });
+async function createAction(req) {
+
+    const newAction = {
+
+        itinerariesId: req.itinerariesId,
+        title: req.title,
+        content: req.content,
+        source_link: req.source_link,
+        image_01_link: req.image_01_link,
+        image_02_link: req.image_02_link,
+        image_03_link: req.image_03_link,
+        image_04_link: req.image_04_link,
+        image_05_link: req.image_05_link,
+
+    }
+
+    await Actions.create(newAction);
 
 }
 
