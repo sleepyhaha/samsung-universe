@@ -12,14 +12,14 @@ Actions.init(
             primaryKey: true,
             autoIncrement: true,
         },
-        itinerariesId: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            references: {
-                model: "itineraries",
-                key: "id",
-            },
-        },
+        // itinerariesId: {
+        //     type: DataTypes.INTEGER,
+        //     allowNull: false,
+        //     references: {
+        //         model: "itineraries",
+        //         key: "id",
+        //     },
+        // },
         title: {
             type: DataTypes.STRING,
             allowNull: false,

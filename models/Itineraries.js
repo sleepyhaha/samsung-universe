@@ -12,14 +12,14 @@ Itineraries.init(
             primaryKey: true,
             autoIncrement: true,
         },
-        usersId: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            references: {
-                model: "users",
-                key: "id",
-            },
-        },
+        // usersId: {
+        //     type: DataTypes.INTEGER,
+        //     allowNull: false,
+        //     references: {
+        //         model: "users",
+        //         key: "id",
+        //     },
+        // },
         depart_date: {
             type: DataTypes.DATE,
             allowNull: false,

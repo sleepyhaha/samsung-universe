@@ -1,6 +1,6 @@
 const sequelize = require("../config/connection.js");
 const Users = require("../models/Users");
-const Itinerary = require("../models/Itineraries");
+const Itineraries = require("../models/Itineraries");
 const Actions = require("../models/Actions");
 
 // TABLE OF CONTENTS
@@ -8,7 +8,7 @@ const Actions = require("../models/Actions");
 // (2) createItinerary
 // (3) createAction
 // (4) getAllUsers
-// (5) getItineraryByUser [including actions]
+// (5) getItineraryByUserId [including actions]
 // (6) updateItinerary
 
 
@@ -49,7 +49,7 @@ async function createItinerary(req) {
 
     const newItinerary = {
 
-        usersId: req.usersId,
+        userId: req.userId,
         depart_date: req.depart_date,
         return_date: req.return_date,
         depart_location: req.depart_location,
@@ -58,7 +58,7 @@ async function createItinerary(req) {
 
     }
 
-    await Itinerary.create(newItinerary);
+    await Itineraries.create(newItinerary);
 
 }
 
@@ -82,7 +82,7 @@ async function createAction(req) {
 
     const newAction = {
 
-        itinerariesId: req.itinerariesId,
+        itineraryId: req.itineraryId,
         title: req.title,
         content: req.content,
         source_link: req.source_link,
@@ -98,9 +98,79 @@ async function createAction(req) {
 
 }
 
+// (4) GET ALL ITEMS FROM USERS TABLE
+// DESCRIPTION: Returns an array of objects, each user is an object.
+// RETURNS:
+// [{
+//     id: 1,
+//     username: 'admin',
+//     password: 'admin123',
+//     createdAt: 2023-08-29T11:41:39.000Z,
+//     updatedAt: 2023-08-29T11:41:39.000Z
+//   }]
+async function getAllUsers() {
+
+    return await Users.findAll({
+        raw: true,
+    });
+
+}
+
+async function getItineraryByUserId(userId) {
+
+    const userData = await Users.findByPk(userId, {
+        // raw: true,
+        include: [{ model: Itineraries, include: { model: Actions } }]
+    });
+
+    console.log(userData.get({ plain: true }));
+
+}
+
+getItineraryByUserId(1);
+// createUser({
+//     username: "admin",
+//     password: "admin123",
+// });
+// createUser({
+//     username: "admin1",
+//     password: "admin123",
+// });
+// createUser({
+//     username: "admin2",
+//     password: "admin123",
+// });
+
+// createItinerary({
+//     userId: 1,
+//     depart_date: "2023-08-29 12:07:32",
+//     return_date: "2023-08-29 12:07:32",
+//     depart_location: "Melbourne",
+//     arrival_location: "New Zealand",
+//     isRoundTrip: false,
+// });
+
+// createAction({
+
+//     itineraryId: 1,
+//     title: "Forest Trail",
+//     content: "It's a pretty cool forest!",
+//     source_link: "https://www.google.com",
+//     image_01_link: "https://www.amazon.com",
+//     image_02_link: "https://www.facebook.com",
+//     image_03_link: "https://www.youtube.com",
+//     image_04_link: "https://www.reddit.com",
+//     image_05_link: "https://www.twitter.com",
+
+// });
+
 module.exports = {
 
     createUser,
     createItinerary,
+    createAction,
+    getAllUsers,
+    getItineraryByUserId,
+
 
 }
