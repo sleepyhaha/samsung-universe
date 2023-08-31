@@ -14,7 +14,8 @@ const Actions = require("../models/Actions");
 // (6) updateItineraryByUserId
 // TODO: (7) updateUserActions
 // TODO: (8) resetPassword
-// TODO: (9) checkPassword
+// (9) getPasswordByUsername
+// (10) checkPassword
 
 // ---
 
@@ -40,7 +41,6 @@ async function createUser(req) {
     await Users.create(newUser);
 
 }
-
 
 // (2) CREATE AN ITINERARY
 // DESCRIPTION: N/A.
@@ -195,6 +195,48 @@ async function updateItineraryByUserId(req) {
 
 }
 
+// 
+// DESCRIPTION: Receives a request with a username and password,
+// compares the unhashed input password with the hashed password stored in the database associated with the input username.
+// RETURNS: 
+
+async function getPasswordByUsername(username) {
+
+    // TODO: TRY/CATCH if the username doesn't exist in the DB
+
+    const user = await Users.findOne({
+        where: {
+            username: username,
+        }
+    });
+
+    return user.password;
+
+}
+
+// 
+// DESCRIPTION: Receives a request with a username and password,
+// compares the unhashed input password with the hashed password stored in the database associated with the input username.
+// RETURNS: 0 if the password is incorrect, 1 if the password is correct, 2 if the username does not exist
+// EXAMPLE:
+// checkPassword({
+//     username: "broski69",
+//     password: "alexiscool123",
+// });
+
+//TODO: if the account doesn't exist.
+
+async function checkPassword(req) {
+
+    const isPassword = await bcrypt.compare(
+        req.password, // compare unhashed user input password
+        await getPasswordByUsername(req.username)); // with hashed password in database
+
+    if (isPassword) return 1
+    else return 0
+
+}
+
 // DELETE: TEST SEEDS
 
 // createUser({
@@ -241,5 +283,6 @@ module.exports = {
     getAllUsers,
     getItineraryByUserId,
     updateItineraryByUserId,
+    checkPassword,
 
 }
