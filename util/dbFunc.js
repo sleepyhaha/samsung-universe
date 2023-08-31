@@ -1,4 +1,6 @@
 const sequelize = require("../config/connection.js");
+const bcrypt = require("bcrypt");
+
 const Users = require("../models/Users");
 const Itineraries = require("../models/Itineraries");
 const Actions = require("../models/Actions");
@@ -20,13 +22,11 @@ const Actions = require("../models/Actions");
 // DESCRIPTION: 
 // EXAMPLE:
 // createUser({
-//     username: "admin",
-//     password: "admin123",
+//     username: "broski69",
+//     password: "alexiscool123",
 // });
 
 async function createUser(req) {
-
-    // TODO: HASH PASSWORD
 
     const newUser = {
 
@@ -35,9 +35,12 @@ async function createUser(req) {
 
     }
 
+    newUser.password = await bcrypt.hash(newUser.password, 10);
+
     await Users.create(newUser);
 
 }
+
 
 // (2) CREATE AN ITINERARY
 // DESCRIPTION: N/A.
