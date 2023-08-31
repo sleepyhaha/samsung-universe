@@ -3,6 +3,9 @@ const exphbs = require("express-handlebars");
 const sequelize = require("./config/connection.js"); //SQL connection
 const path = require("path");
 require("./models"); // Import models
+const {
+    createUser,
+} = require("./util/dbFunc.js");
 
 // SETUP express
 const server = express();
@@ -19,7 +22,7 @@ server.use(express.static(path.join(__dirname, "public")));
 
 server.use(require("./controllers"));
 
-sequelize.sync({ force: true }).then(() => {
+sequelize.sync({ force: false }).then(() => {
 
     server.listen(PORT, () => console.log(`Server listening on port ${PORT}`))
 
