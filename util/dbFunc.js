@@ -9,8 +9,9 @@ const Actions = require("../models/Actions");
 // (3) createAction
 // (4) getAllUsers
 // (5) getItineraryByUserId [including actions]
-// (6) updateItinerary
-// (7) resetPassword
+// (6) updateItineraryByUserId
+// TODO: (7) updateUserActions
+// TODO: (8) resetPassword
 
 // ---
 
@@ -47,6 +48,7 @@ async function createUser(req) {
 //     arrival_location: "New Zealand",
 //     isRoundTrip: false,
 // });
+
 async function createItinerary(req) {
 
     const newItinerary = {
@@ -80,6 +82,7 @@ async function createItinerary(req) {
 //     image_05_link: "https://www.twitter.com",
 
 // });
+
 async function createAction(req) {
 
     const newAction = {
@@ -120,7 +123,7 @@ async function getAllUsers() {
 }
 
 // (5) GET AN ITINERARY BY A USER ID
-// DESCRIPTION: N/A.s
+// DESCRIPTION: Returns an object that includes user, itinerary and action data.
 // EXAMPLE: getItineraryByUserId(1) -> returns data from user with id = 1
 // RETURN EXAMPLE:
 // {
@@ -145,13 +148,43 @@ async function getAllUsers() {
 //     ]
 //   }
 
-async function getItineraryByUserId(userId) {
+async function getItineraryByUserId(selectUserId) {
 
-    const userData = await Users.findByPk(userId, {
+    const userData = await Users.findByPk(selectUserId, {
         include: [{ model: Itineraries, include: [{ model: Actions }] }]
     });
 
     return userData.get({ plain: true });
+
+}
+
+// (6) UPDATE ITINERARY BY A USER ID
+// DESCRIPTION: N/A.
+// EXAMPLE:
+//  updateItineraryByUserId({
+//     userId: 1,
+//     depart_date: "2024-08-29 12:07:32",
+//     return_date: "2026-08-29 12:07:32",
+//     depart_location: "Melbourne",
+//     arrival_location: "Los Angeles",
+//     isRoundTrip: false,
+// });
+
+async function updateItineraryByUserId(req) {
+
+    await Itineraries.update({
+        userId: req.userId,
+        depart_date: req.depart_date,
+        return_date: req.return_date,
+        depart_location: req.depart_location,
+        arrival_location: req.arrival_location,
+        isRoundTrip: req.isRoundTrip,
+    },
+        {
+            where: {
+                userId: req.userId,
+            }
+        });
 
 }
 
@@ -200,6 +233,6 @@ module.exports = {
     createAction,
     getAllUsers,
     getItineraryByUserId,
-
+    updateItineraryByUserId,
 
 }
