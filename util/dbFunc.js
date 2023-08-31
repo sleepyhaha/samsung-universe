@@ -12,6 +12,7 @@ const Actions = require("../models/Actions");
 // (6) updateItineraryByUserId
 // TODO: (7) updateUserActions
 // TODO: (8) resetPassword
+// TODO: (9) checkPassword
 
 // ---
 
@@ -22,6 +23,7 @@ const Actions = require("../models/Actions");
 //     username: "admin",
 //     password: "admin123",
 // });
+
 async function createUser(req) {
 
     // TODO: HASH PASSWORD
@@ -172,14 +174,16 @@ async function getItineraryByUserId(selectUserId) {
 
 async function updateItineraryByUserId(req) {
 
-    await Itineraries.update({
+    const userItineraryUpdated = {
         userId: req.userId,
         depart_date: req.depart_date,
         return_date: req.return_date,
         depart_location: req.depart_location,
         arrival_location: req.arrival_location,
         isRoundTrip: req.isRoundTrip,
-    },
+    }
+
+    await Itineraries.update(userItineraryUpdated,
         {
             where: {
                 userId: req.userId,
