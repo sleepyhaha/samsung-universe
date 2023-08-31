@@ -10,7 +10,9 @@ const Actions = require("../models/Actions");
 // (4) getAllUsers
 // (5) getItineraryByUserId [including actions]
 // (6) updateItinerary
+// (7) resetPassword
 
+// ---
 
 // (1) CREATE A USER
 // DESCRIPTION: 
@@ -108,6 +110,7 @@ async function createAction(req) {
 //     createdAt: 2023-08-29T11:41:39.000Z,
 //     updatedAt: 2023-08-29T11:41:39.000Z
 //   }]
+
 async function getAllUsers() {
 
     return await Users.findAll({
@@ -116,18 +119,44 @@ async function getAllUsers() {
 
 }
 
+// (5) GET AN ITINERARY BY A USER ID
+// DESCRIPTION: N/A.s
+// EXAMPLE: getItineraryByUserId(1) -> returns data from user with id = 1
+// RETURN EXAMPLE:
+// {
+//     id: 1,
+//     username: 'admin',
+//     password: 'admin123',
+//     createdAt: 2023-08-31T09:11:56.000Z,
+//     updatedAt: 2023-08-31T09:11:56.000Z,
+//     itineraries: [
+//       {
+//         id: 1,
+//         depart_date: 2023-08-29T02:07:32.000Z,
+//         return_date: 2023-08-29T02:07:32.000Z,
+//         depart_location: 'Melbourne',
+//         arrival_location: 'New Zealand',
+//         isRoundTrip: false,
+//         createdAt: 2023-08-31T09:11:56.000Z,
+//         updatedAt: 2023-08-31T09:11:56.000Z,
+//         userId: 1,
+//         actions: [Array]
+//       }
+//     ]
+//   }
+
 async function getItineraryByUserId(userId) {
 
     const userData = await Users.findByPk(userId, {
-        // raw: true,
-        include: [{ model: Itineraries, include: { model: Actions } }]
+        include: [{ model: Itineraries, include: [{ model: Actions }] }]
     });
 
-    console.log(userData.get({ plain: true }));
+    return userData.get({ plain: true });
 
 }
 
-getItineraryByUserId(1);
+// DELETE: TEST SEEDS
+
 // createUser({
 //     username: "admin",
 //     password: "admin123",
@@ -153,7 +182,7 @@ getItineraryByUserId(1);
 // createAction({
 
 //     itineraryId: 1,
-//     title: "Forest Trail",
+//     title: "Jungle Bungle",
 //     content: "It's a pretty cool forest!",
 //     source_link: "https://www.google.com",
 //     image_01_link: "https://www.amazon.com",
