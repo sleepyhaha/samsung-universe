@@ -1,4 +1,3 @@
-const sequelize = require("../config/connection.js");
 const bcrypt = require("bcrypt");
 
 const { sendCode } = require("./smtpFunc.js");
@@ -8,18 +7,18 @@ const Itineraries = require("../models/Itineraries");
 const Actions = require("../models/Actions");
 
 // TABLE OF CONTENTS
-// (1) createUser
-// (2) createItinerary
-// (3) createAction
-// (4) getAllUsers
-// (5) getItineraryByUserId [including actions]
-// (6) updateItineraryByUserId
+// (1) createUser - CREATE A USER
+// (2) createItinerary - CREATE AN ITINERARY
+// (3) createAction - CREATE AN ACTION
+// (4) getAllUsers - GET ALL ITEMS FROM USERS TABLE
+// (5) getItineraryByUserId [including actions] - GET AN ITINERARY BY A USER ID
+// (6) updateItineraryByUserId - UPDATE ITINERARY BY A USER ID
 // TODO: (7) updateUserActions
 // TODO: (8) resetPassword
-// (9) getPasswordByUsername
-// (10) checkPassword
-// (11) checkAccountActivated
-// (12) checkActivateCode
+// (9) getPasswordByUsername - GET PASSWORD BY USERNAME
+// (10) checkPassword - CHECK INPUT PASSWORD AGAINST DATABASE PASSWORD [ACCOUNT LOGIN]
+// (11) checkAccountActivated - (11) CHECK IF THE ACCOUNT HAS BEEN ACTIVATED
+// (12) checkActivateCode - CHECK IF ACCOUNT CONFIRMATION CODE IS CORRECT
 
 // ---
 
@@ -207,10 +206,10 @@ async function updateItineraryByUserId(req) {
 
 }
 
-// 
-// DESCRIPTION: Receives a request with a username and password,
-// compares the unhashed input password with the hashed password stored in the database associated with the input username.
-// RETURNS: 
+// (9) GET PASSWORD BY USERNAME
+// DESCRIPTION: This function accepts a valid username as an argument,
+// and returns the hashed password of the user from the database.
+// This function is used for (10) checkPassword.
 
 async function getPasswordByUsername(username) {
 
@@ -226,7 +225,7 @@ async function getPasswordByUsername(username) {
 
 }
 
-// 
+// (10) CHECK INPUT PASSWORD AGAINST DATABASE PASSWORD [ACCOUNT LOGIN]
 // DESCRIPTION: Receives a request with a username and password,
 // compares the unhashed input password with the hashed password stored in the database associated with the input username.
 // RETURNS: 0 if the password is incorrect, 1 if the password is correct, 2 if the username does not exist
@@ -310,44 +309,6 @@ async function checkActivateCode(user) {
 
 }
 
-// DELETE: TEST SEEDS
-
-// createUser({
-//     username: "admin",
-//     password: "admin123",
-// });
-// createUser({
-//     username: "admin1",
-//     password: "admin123",
-// });
-// createUser({
-//     username: "admin2",
-//     password: "admin123",
-// });
-
-// createItinerary({
-//     userId: 1,
-//     depart_date: "2023-08-29 12:07:32",
-//     return_date: "2023-08-29 12:07:32",
-//     depart_location: "Melbourne",
-//     arrival_location: "New Zealand",
-//     isRoundTrip: false,
-// });
-
-// createAction({
-
-//     itineraryId: 1,
-//     title: "Jungle Bungle",
-//     content: "It's a pretty cool forest!",
-//     source_link: "https://www.google.com",
-//     image_01_link: "https://www.amazon.com",
-//     image_02_link: "https://www.facebook.com",
-//     image_03_link: "https://www.youtube.com",
-//     image_04_link: "https://www.reddit.com",
-//     image_05_link: "https://www.twitter.com",
-
-// });
-
 module.exports = {
 
     createUser,
@@ -357,6 +318,7 @@ module.exports = {
     getItineraryByUserId,
     updateItineraryByUserId,
     checkPassword,
+    checkAccountActivated,
     checkActivateCode,
 
 }

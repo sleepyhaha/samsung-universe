@@ -25,7 +25,7 @@ Users.init(
             allowNull: false,
         },
         activateCode: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING(4),
             allowNull: true,
         },
         isActivated: {
