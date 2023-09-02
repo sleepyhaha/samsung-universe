@@ -18,6 +18,8 @@ const Actions = require("../models/Actions");
 // TODO: (8) resetPassword
 // (9) getPasswordByUsername
 // (10) checkPassword
+// TODO: (11) checkAccountActivated
+// (12) checkActivateCode
 
 // ---
 
@@ -246,6 +248,51 @@ async function checkPassword(req) {
 
 }
 
+// (11) CHECK IF THE ACCOUNT HAS BEEN ACTIVATED
+// DESCRIPTION: 
+// EXAMPLE:
+
+// (12) CHECK IF ACCOUNT CONFIRMATION CODE IS CORRECT
+// DESCRIPTION: An object parameter is accepted, format seen in the EXAMPLE section.
+// The function compares the input with the database. IF both are the same, then set isActivated to true for that user,
+// and return true.
+// IF input is different to the database, return false.
+// EXAMPLE:
+// checkActivateCode({
+
+//     username: "broski69",
+//     inputActivateCode: 1234, // MUST BE AN INTEGER
+
+// });
+
+async function checkActivateCode(user) {
+
+    // Pulls the user's data from DB
+    const userData = await Users.findOne({
+        where: {
+            username: user.username,
+        },
+        raw: true,
+    });
+
+    // Check to see if the input code is the same as what's in the DB
+    // IF true, then set activateCode to true for the user and update it in the DB
+    if (userData.activateCode === user.inputActivateCode) {
+
+        userData.activateCode = true;
+
+        await Users.update(userData, {
+            where: {
+                id: userData.id,
+            }
+        });
+
+        return true;
+
+    } else false;
+
+}
+
 // DELETE: TEST SEEDS
 
 // createUser({
@@ -293,5 +340,6 @@ module.exports = {
     getItineraryByUserId,
     updateItineraryByUserId,
     checkPassword,
+    checkActivateCode,
 
 }
