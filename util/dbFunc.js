@@ -277,7 +277,7 @@ async function checkAccountActivated(username) {
 // checkActivateCode({
 
 //     username: "broski69",
-//     inputActivateCode: 1, // MUST BE AN INTEGER
+//     inputActivateCode: "1234", // MUST BE A STRING
 
 // });
 
