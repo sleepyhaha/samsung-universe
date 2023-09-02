@@ -10,4 +10,8 @@ const smtp = nodemailer.createTransport({
     }
 });
 
-module.exports = { smtp };
+module.exports = {
+
+    smtp,
+
+};

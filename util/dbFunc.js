@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
 
 const { sendCode } = require("./smtpFunc.js");
+const { generateCode } = require("./common.js");
 
 const Users = require("../models/Users");
 const Itineraries = require("../models/Itineraries");
@@ -38,13 +39,13 @@ async function createUser(req) {
     const newUser = {
 
         email: req.email,
-        activateCode: "1234",
+        activateCode: generateCode(4),
         username: req.username,
         password: req.password,
 
     }
 
-    sendCode(newUser);
+    await sendCode(newUser);
 
     newUser.password = await bcrypt.hash(newUser.password, 10);
 
