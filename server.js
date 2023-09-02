@@ -3,7 +3,7 @@ const exphbs = require("express-handlebars");
 const sequelize = require("./config/connection.js"); //SQL connection
 const path = require("path");
 require("./models"); // Import models
-require("./config/smtp.js");
+// require("./config/smtp.js");
 const {
     createUser,
 } = require("./util/dbFunc.js");
@@ -28,3 +28,9 @@ sequelize.sync({ force: false }).then(() => {
     server.listen(PORT, () => console.log(`Server listening on port ${PORT}`))
 
 });
+
+// createUser({
+//     email: "ananfro@live.com",
+//     username: "broski69",
+//     password: "alexiscool123",
+// });

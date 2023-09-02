@@ -25,15 +25,19 @@ const Actions = require("../models/Actions");
 // DESCRIPTION: 
 // EXAMPLE:
 // createUser({
+//     email: "ananfro@live.com",
 //     username: "broski69",
 //     password: "alexiscool123",
 // });
 
 async function createUser(req) {
 
+    //TODO: Make randomised activateCode
+
     const newUser = {
 
         email: req.email,
+        activateCode: "1234",
         username: req.username,
         password: req.password,
 
