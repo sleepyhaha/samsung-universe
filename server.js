@@ -3,6 +3,7 @@ const exphbs = require("express-handlebars");
 const sequelize = require("./config/connection.js"); //SQL connection
 const path = require("path");
 require("./models"); // Import models
+require("./config/smtp.js");
 const {
     createUser,
 } = require("./util/dbFunc.js");

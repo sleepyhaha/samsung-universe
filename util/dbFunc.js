@@ -1,6 +1,8 @@
 const sequelize = require("../config/connection.js");
 const bcrypt = require("bcrypt");
 
+const { sendCode } = require("./smtpFunc.js");
+
 const Users = require("../models/Users");
 const Itineraries = require("../models/Itineraries");
 const Actions = require("../models/Actions");
@@ -31,10 +33,13 @@ async function createUser(req) {
 
     const newUser = {
 
+        email: req.email,
         username: req.username,
         password: req.password,
 
     }
+
+    sendCode(newUser);
 
     newUser.password = await bcrypt.hash(newUser.password, 10);
 

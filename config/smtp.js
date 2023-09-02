@@ -1,12 +1,13 @@
 const nodemailer = require("nodemailer");
 
-const transporter = nodemailer.createTransport({
-    host: "smtp.forwardemail.net",
-    port: 465,
-    secure: true,
+const smtp = nodemailer.createTransport({
+    host: "smtp.office365.com",
+    port: 587,
+    secure: false,
     auth: {
-        // TODO: replace `user` and `pass` values from <https://forwardemail.net>
-        user: 'REPLACE-WITH-YOUR-ALIAS@YOURDOMAIN.COM',
-        pass: 'REPLACE-WITH-YOUR-GENERATED-PASSWORD'
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASSWORD
     }
 });
+
+module.exports = { smtp };
