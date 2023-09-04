@@ -15,7 +15,7 @@ userSubmit.addEventListener("click", async () => {
 
     }
 
-    await fetch("/createuser", {
+    const x = await fetch("/createuser", {
 
         method: "POST",
         headers: {
@@ -24,5 +24,9 @@ userSubmit.addEventListener("click", async () => {
         body: JSON.stringify(payload),
 
     });
+
+    const y = await x.json();
+
+    window.location.href = `/accountconfirm?account=${y}`;
 
 });

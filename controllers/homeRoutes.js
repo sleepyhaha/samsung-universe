@@ -35,15 +35,21 @@ router.get("/createaccount", (req, res) => {
 
 router.post("/createuser", async (req, res) => {
 
-    createUser(req.body);
-    res.status(200).json();
+    await createUser(req.body);
+    res.json(req.body.username);
+
+});
+
+router.get("/accountconfirm", (req, res) => {
+
+    res.render("account-confirmation");
 
 });
 
 router.post("/accountconfirm", async (req, res) => {
 
-    // checkActivateCode(req.body.username);
-    res.status(200).json();
+    await checkActivateCode(req.body);
+    res.end;
 
 });
 

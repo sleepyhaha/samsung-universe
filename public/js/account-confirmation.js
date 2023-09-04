@@ -3,10 +3,12 @@ const userSubmit = document.querySelector("#submit-confirm");
 
 userSubmit.addEventListener("click", async () => {
 
+    const z = new URL(window.location.href).searchParams.get("account");
+
     const payload = {
 
-        // username: "broski69",
-        inputActivateCode: activateCode, // MUST BE A STRING
+        username: z,
+        inputActivateCode: activateCode.value, // MUST BE A STRING
 
     }
 
