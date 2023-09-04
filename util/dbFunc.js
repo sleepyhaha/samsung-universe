@@ -1,40 +1,51 @@
-const sequelize = require("../config/connection.js");
 const bcrypt = require("bcrypt");
+
+const { sendCode } = require("./smtpFunc.js");
+const { generateCode } = require("./common.js");
 
 const Users = require("../models/Users");
 const Itineraries = require("../models/Itineraries");
 const Actions = require("../models/Actions");
 
 // TABLE OF CONTENTS
-// (1) createUser
-// (2) createItinerary
-// (3) createAction
-// (4) getAllUsers
-// (5) getItineraryByUserId [including actions]
-// (6) updateItineraryByUserId
+// (1) createUser - CREATE A USER
+// (2) createItinerary - CREATE AN ITINERARY
+// (3) createAction - CREATE AN ACTION
+// (4) getAllUsers - GET ALL ITEMS FROM USERS TABLE
+// (5) getItineraryByUserId [including actions] - GET AN ITINERARY BY A USER ID
+// (6) updateItineraryByUserId - UPDATE ITINERARY BY A USER ID
 // TODO: (7) updateUserActions
 // TODO: (8) resetPassword
-// (9) getPasswordByUsername
-// (10) checkPassword
+// (9) getPasswordByUsername - GET PASSWORD BY USERNAME
+// (10) checkPassword - CHECK INPUT PASSWORD AGAINST DATABASE PASSWORD [ACCOUNT LOGIN]
+// (11) checkAccountActivated - (11) CHECK IF THE ACCOUNT HAS BEEN ACTIVATED
+// (12) checkActivateCode - CHECK IF ACCOUNT CONFIRMATION CODE IS CORRECT
 
 // ---
 
 // (1) CREATE A USER
 // DESCRIPTION: 
-// EXAMPLE:
+// SAMPLE FUNCTION:
 // createUser({
+//     email: "ananfro@live.com",
 //     username: "broski69",
 //     password: "alexiscool123",
 // });
 
 async function createUser(req) {
 
+    //TODO: Make randomised activateCode
+
     const newUser = {
 
+        email: req.email,
+        activateCode: generateCode(4),
         username: req.username,
         password: req.password,
 
     }
+
+    await sendCode(newUser);
 
     newUser.password = await bcrypt.hash(newUser.password, 10);
 
@@ -44,7 +55,7 @@ async function createUser(req) {
 
 // (2) CREATE AN ITINERARY
 // DESCRIPTION: N/A.
-// EXAMPLE:
+// SAMPLE FUNCTION:
 // createItinerary({
 //     usersId: 1,
 //     depart_date: "2023-08-29 12:07:32",
@@ -73,7 +84,7 @@ async function createItinerary(req) {
 
 // (3) CREATE AN ACTION
 // DESCRIPTION: N/A.
-// EXAMPLE:
+// SAMPLE FUNCTION:
 // createAction({
 
 //     itinerariesId: 1,
@@ -110,7 +121,7 @@ async function createAction(req) {
 
 // (4) GET ALL ITEMS FROM USERS TABLE
 // DESCRIPTION: Returns an array of objects, each user is an object.
-// RETURNS:
+// RETURN SAMPLE:
 // [{
 //     id: 1,
 //     username: 'admin',
@@ -128,9 +139,10 @@ async function getAllUsers() {
 }
 
 // (5) GET AN ITINERARY BY A USER ID
-// DESCRIPTION: Returns an object that includes user, itinerary and action data.
-// EXAMPLE: getItineraryByUserId(1) -> returns data from user with id = 1
-// RETURN EXAMPLE:
+// DESCRIPTION: This function takes the user's ID (INTEGER) as an argument.
+// Returns an object that includes user, itinerary and action data.
+// SAMPLE FUNCTION: getItineraryByUserId(1) -> returns data from user with id = 1
+// RETURN SAMPLE:
 // {
 //     id: 1,
 //     username: 'admin',
@@ -165,7 +177,7 @@ async function getItineraryByUserId(selectUserId) {
 
 // (6) UPDATE ITINERARY BY A USER ID
 // DESCRIPTION: N/A.
-// EXAMPLE:
+// SAMPLE FUNCTION:
 //  updateItineraryByUserId({
 //     userId: 1,
 //     depart_date: "2024-08-29 12:07:32",
@@ -195,10 +207,10 @@ async function updateItineraryByUserId(req) {
 
 }
 
-// 
-// DESCRIPTION: Receives a request with a username and password,
-// compares the unhashed input password with the hashed password stored in the database associated with the input username.
-// RETURNS: 
+// (9) GET PASSWORD BY USERNAME
+// DESCRIPTION: This function accepts a valid username as an argument,
+// and returns the hashed password of the user from the database.
+// This function is used for (10) checkPassword.
 
 async function getPasswordByUsername(username) {
 
@@ -214,17 +226,17 @@ async function getPasswordByUsername(username) {
 
 }
 
-// 
+// (10) CHECK INPUT PASSWORD AGAINST DATABASE PASSWORD [ACCOUNT LOGIN]
 // DESCRIPTION: Receives a request with a username and password,
 // compares the unhashed input password with the hashed password stored in the database associated with the input username.
 // RETURNS: 0 if the password is incorrect, 1 if the password is correct, 2 if the username does not exist
-// EXAMPLE:
+// SAMPLE FUNCTION:
 // checkPassword({
 //     username: "broski69",
 //     password: "alexiscool123",
 // });
 
-//TODO: if the account doesn't exist.
+//EXTRA TODO: if the account doesn't exist, return 2.
 
 async function checkPassword(req) {
 
@@ -232,48 +244,71 @@ async function checkPassword(req) {
         req.password, // compare unhashed user input password
         await getPasswordByUsername(req.username)); // with hashed password in database
 
-    if (isPassword) return 1
-    else return 0
+    if (isPassword) return 1;
+    else return 0;
 
 }
 
-// DELETE: TEST SEEDS
+// (11) CHECK IF THE ACCOUNT HAS BEEN ACTIVATED
+// DESCRIPTION: This function accepts a username as an argument and checks IF users.isActivated is true, return true.
+// IF false, then return false
+// SAMPLE FUNCTION:
+// checkAccountActivated("broski69");
 
-// createUser({
-//     username: "admin",
-//     password: "admin123",
-// });
-// createUser({
-//     username: "admin1",
-//     password: "admin123",
-// });
-// createUser({
-//     username: "admin2",
-//     password: "admin123",
-// });
+async function checkAccountActivated(username) {
 
-// createItinerary({
-//     userId: 1,
-//     depart_date: "2023-08-29 12:07:32",
-//     return_date: "2023-08-29 12:07:32",
-//     depart_location: "Melbourne",
-//     arrival_location: "New Zealand",
-//     isRoundTrip: false,
-// });
+    const userData = await Users.findOne({
+        where: {
+            username: username,
+        },
+        raw: true,
+    });
 
-// createAction({
+    if (userData.isActivated === 1) return true;
+    else return false;
 
-//     itineraryId: 1,
-//     title: "Jungle Bungle",
-//     content: "It's a pretty cool forest!",
-//     source_link: "https://www.google.com",
-//     image_01_link: "https://www.amazon.com",
-//     image_02_link: "https://www.facebook.com",
-//     image_03_link: "https://www.youtube.com",
-//     image_04_link: "https://www.reddit.com",
-//     image_05_link: "https://www.twitter.com",
+}
+
+// (12) CHECK IF ACCOUNT CONFIRMATION CODE IS CORRECT
+// DESCRIPTION: An object parameter is accepted, format seen in the SAMPLE FUNCTION section.
+// The function compares the input with the database. IF both are the same, then set isActivated to true for that user,
+// and return true.
+// IF input is different to the database, return false.
+// SAMPLE FUNCTION:
+// checkActivateCode({
+
+//     username: "broski69",
+//     inputActivateCode: "1234", // MUST BE A STRING
 
 // });
+
+async function checkActivateCode(user) {
+
+    // Pulls the user's data from DB
+    const userData = await Users.findOne({
+        where: {
+            username: user.username,
+        },
+        raw: true,
+    });
+
+    // Check to see if the input code is the same as what's in the DB
+    // IF true, then set activateCode to true for the user and update it in the DB
+    if (userData.activateCode === user.inputActivateCode) {
+
+        userData.isActivated = true;
+
+        await Users.update(userData, {
+            where: {
+                id: userData.id,
+            }
+        });
+
+        return true;
+
+    } else false;
+
+}
 
 module.exports = {
 
@@ -284,5 +319,7 @@ module.exports = {
     getItineraryByUserId,
     updateItineraryByUserId,
     checkPassword,
+    checkAccountActivated,
+    checkActivateCode,
 
 }
