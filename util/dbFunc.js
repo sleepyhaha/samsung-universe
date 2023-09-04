@@ -47,9 +47,9 @@ async function createUser(req) {
 
     await sendCode(newUser);
 
-    newUser.password = await bcrypt.hash(newUser.password, 10);
+    // newUser.password = await bcrypt.hash(newUser.password, 10);
 
-    await Users.create(newUser);
+    // await Users.create(newUser);
 
 }
 
