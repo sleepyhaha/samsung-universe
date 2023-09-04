@@ -19,7 +19,20 @@ Users.init(
         password: {
             type: DataTypes.STRING,
             allowNull: false,
-        }
+        },
+        email: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        activateCode: {
+            type: DataTypes.STRING(4),
+            allowNull: true,
+        },
+        isActivated: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: false,
+        },
     },
     {
         sequelize,
