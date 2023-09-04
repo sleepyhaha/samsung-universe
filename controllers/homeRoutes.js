@@ -40,4 +40,11 @@ router.post("/createuser", async (req, res) => {
 
 });
 
+router.post("/accountconfirm", async (req, res) => {
+
+    // checkActivateCode(req.body.username);
+    res.status(200).json();
+
+});
+
 module.exports = router;
