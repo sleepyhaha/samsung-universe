@@ -1,18 +1,6 @@
-const router = require('express').Router();
-const apiRoutes = require('./api');
-
-router.use('/api', apiRoutes);
-
-router.use((req, res) => {
-    res.send("<h1>Wrong Route!</h1>")
-});
-
-module.exports = router;
 
 const router = require('express').Router();
 const { Actions, Itineraries, Users } = require('../../models');
-
-
 
 //Shows user's saved places of interest
 //return itineraries and trip info for the user currently logged in
@@ -26,7 +14,6 @@ router.get('/', (req, res) => {
         res.json(data);
     });
 });
-
 
 //Saves itinerary
 router.post('/', (req, res) => {
