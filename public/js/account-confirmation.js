@@ -3,16 +3,16 @@ const userSubmit = document.querySelector("#submit-confirm");
 
 userSubmit.addEventListener("click", async () => {
 
-    const z = new URL(window.location.href).searchParams.get("account");
+    const parsedUsername = new URL(window.location.href).searchParams.get("account");
 
     const payload = {
 
-        username: z,
+        username: parsedUsername,
         inputActivateCode: activateCode.value, // MUST BE A STRING
 
     }
 
-    await fetch("/accountconfirm", {
+    let confirmation = await fetch("/accountconfirm", {
 
         method: "POST",
         headers: {
@@ -21,5 +21,9 @@ userSubmit.addEventListener("click", async () => {
         body: JSON.stringify(payload),
 
     });
+
+    if (confirmation.status === 200) window.location.href = "/";
+    if (confirmation.status === 400) alert("Wrong code! Please try again.");
+    else window.location.href = "/";
 
 });

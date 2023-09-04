@@ -45,7 +45,7 @@ async function createUser(req) {
 
     }
 
-    // await sendCode(newUser);
+    await sendCode(newUser);
 
     newUser.password = await bcrypt.hash(newUser.password, 10);
 
@@ -306,7 +306,7 @@ async function checkActivateCode(user) {
 
         return true;
 
-    } else false;
+    } else return false;
 
 }
 

@@ -48,8 +48,10 @@ router.get("/accountconfirm", (req, res) => {
 
 router.post("/accountconfirm", async (req, res) => {
 
-    await checkActivateCode(req.body);
-    res.end;
+    const correctCode = await checkActivateCode(req.body);
+
+    if (correctCode) { res.status(200).json(); }
+    else { res.status(400).json(); }
 
 });
 
