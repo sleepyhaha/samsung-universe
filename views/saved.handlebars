@@ -13,8 +13,22 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-      </tr>
+      {{#each itineraries as |itineraries|}}
+        <tr>
+          <td>
+            {{itineraries.depart_location}}
+          </td>
+          <td>
+            {{itineraries.depart_date}}
+          </td>
+          <td>
+            {{itineraries.arrival_location}}
+          </td>
+          <td>
+            {{itineraries.return_date}}
+          </td>
+        </tr>
+      {{/each}}
     </tbody>
   </table>
 </main>

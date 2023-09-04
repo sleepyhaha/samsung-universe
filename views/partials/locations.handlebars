@@ -1,8 +1,10 @@
-<div class="h-64 w-52 border relative">
-  <i
-    class="fa-regular fa-star fa-xl absolute right-4 top-6"
-    style="color: #000000;"
-  ></i>
+{{#each content as |content|}}
+  <div class="h-64 w-52 border relative">
+    <i
+      class="fa-regular fa-star fa-xl absolute right-4 top-6"
+      style="color: #000000;"
+    ></i>
+    <img src="{{issue.photo}}" alt="{{issue.name}}" class="w-full" />
 
-  {{! info here }}
-</div>
+  </div>
+{{/each}}
