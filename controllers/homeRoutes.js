@@ -21,11 +21,24 @@ router.get("/", (req, res) => {
 
 });
 
+// LOGIN
+
 router.get("/login", (req, res) => {
 
     res.render("login");
 
 });
+
+router.post("/login", async (req, res) => {
+
+    const login = await checkPassword(req.body);
+
+    if (login === 0) { res.status(400).json(); }
+    else if (login === 1) { res.status(200).json(); }
+
+});
+
+// CREATE ACCOUNT
 
 router.get("/createaccount", (req, res) => {
 
@@ -39,6 +52,8 @@ router.post("/createuser", async (req, res) => {
     res.json(req.body.username);
 
 });
+
+// ACCOUNT CONFIRMATION
 
 router.get("/accountconfirm", (req, res) => {
 
