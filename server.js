@@ -11,7 +11,7 @@ const server = express();
 const PORT = process.env.PORT || 3001;
 
 // SETUP express-session
-app.use(session({
+server.use(session({
 
     secret: process.env.SESSION_SECRET,
     resave: false,
