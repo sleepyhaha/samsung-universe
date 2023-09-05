@@ -17,7 +17,25 @@ const {
 
 router.get("/", (req, res) => {
 
-    res.render("main");
+
+    const sessionData = {
+        username: req.session.username,
+        loggedIn: req.session.loggedIn
+    };
+
+    if (req.session.loggedIn === true) {
+
+        res.render("main", { sessionData });
+
+    }
+
+    else {
+
+        res.render("login");
+
+    }
+
+    // res.render("main");
 
 });
 
@@ -33,8 +51,29 @@ router.post("/login", async (req, res) => {
 
     const login = await checkPassword(req.body);
 
-    if (login === 0) { res.status(400).json(); }
-    else if (login === 1) { res.status(200).json(); }
+    if (login === 0) {
+
+        req.session.loggedIn = false;
+        res.status(400).json();
+
+    }
+    else if (login === 1) {
+
+        req.session.loggedIn = true;
+        req.session.username = req.body.username;
+        res.status(200).json();
+
+    }
+
+});
+
+// LOGOUT
+
+router.get("/logout", (req, res) => {
+
+    req.session.destroy(() => {
+        res.render("login");
+    });
 
 });
 
