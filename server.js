@@ -1,4 +1,5 @@
 const express = require("express");
+const session = require('express-session');
 const exphbs = require("express-handlebars");
 const sequelize = require("./config/connection.js"); //SQL connection
 const path = require("path");
@@ -8,6 +9,15 @@ require("./models"); // Import models
 // SETUP express
 const server = express();
 const PORT = process.env.PORT || 3001;
+
+// SETUP express-session
+app.use(session({
+
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+
+}));
 
 // SETUP express-handlebars
 const hbs = exphbs.create({});
