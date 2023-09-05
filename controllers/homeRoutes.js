@@ -59,9 +59,19 @@ router.post("/login", async (req, res) => {
     }
     else if (login === 1) {
 
-        req.session.loggedIn = true;
-        req.session.username = req.body.username;
-        res.status(200).json();
+        const isActivated = await checkAccountActivated(req.body.username);
+
+        if (isActivated) {
+
+            req.session.loggedIn = true;
+            req.session.username = req.body.username;
+            res.status(200).json();
+
+        } else {
+
+            res.status(203).json();
+
+        }
 
     }
 
