@@ -306,7 +306,7 @@ async function checkActivateCode(user) {
 
         return true;
 
-    } else false;
+    } else return false;
 
 }
 
