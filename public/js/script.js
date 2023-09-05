@@ -1,5 +1,3 @@
-require("dotenv").config;
-
 let locationEl = document.querySelector("#destination");
 let submitEl = document.querySelector("#submit");
 let resultsEl = document.querySelector("#results");
@@ -8,6 +6,8 @@ let museumEl = document.querySelector("#museumBtn");
 let nightEl = document.querySelector("#nightlifeBtn");
 let sightsEl = document.querySelector("#sightsBtn");
 let zooEl = document.querySelector("#zooBtn");
+
+const dotenv = require("dotenv");
 
 //Get user location
 submitEl.addEventListener("click", function (event) {
@@ -30,7 +30,7 @@ function runFetch() {
   fetch(
     "https://maps.googleapis.com/maps/api/geocode/json?address=" +
       userLocation +
-      process.env.API_KEY
+      dotenv.API_KEY
   )
     .then(function (response) {
       console.log(userLocation);
