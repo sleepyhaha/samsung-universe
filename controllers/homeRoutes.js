@@ -17,9 +17,15 @@ const {
 
 router.get("/", (req, res) => {
 
+
+    const sessionData = {
+        username: req.session.username,
+        loggedIn: req.session.loggedIn
+    };
+
     if (req.session.loggedIn === true) {
 
-        res.render("main", { username: req.session.username });
+        res.render("main", { sessionData });
 
     }
 
@@ -50,8 +56,6 @@ router.post("/login", async (req, res) => {
         req.session.loggedIn = false;
         res.status(400).json();
 
-
-
     }
     else if (login === 1) {
 
@@ -60,6 +64,16 @@ router.post("/login", async (req, res) => {
         res.status(200).json();
 
     }
+
+});
+
+// LOGOUT
+
+router.get("/logout", (req, res) => {
+
+    req.session.destroy(() => {
+        res.render("login");
+    });
 
 });
 
