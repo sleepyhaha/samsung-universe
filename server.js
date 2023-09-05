@@ -2,6 +2,7 @@ const express = require("express");
 const exphbs = require("express-handlebars");
 const sequelize = require("./config/connection.js"); //SQL connection
 const path = require("path");
+// const bodyParser = require("body-parser");
 require("./models"); // Import models
 
 // SETUP express
@@ -13,6 +14,7 @@ const hbs = exphbs.create({});
 server.engine("handlebars", hbs.engine);
 server.set("view engine", "handlebars");
 
+// server.use(bodyParser.json());
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 server.use(express.static(path.join(__dirname, "public")));
