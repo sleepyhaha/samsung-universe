@@ -2,12 +2,17 @@ const Users = require("./Users");
 const Itineraries = require("./Itineraries");
 const Actions = require("./Actions");
 
-Users.hasMany(Itineraries, {
-    // foreignKey: "usersId"
+Users.hasMany(Actions, {
+    foreignKey: 'id',
+    onDelete: 'CASCADE',
 });
-Itineraries.belongsTo(Users);
 
-Itineraries.hasMany(Actions, {
-    // foreignKey: "itinerariesId"
+Actions.belongsTo(Users, {
+    foreignKey: 'id',
+    onDelete: 'CASCADE',
 });
-Actions.belongsTo(Itineraries);
+
+// Itineraries.hasMany(Actions, {
+//     // foreignKey: "itinerariesId"
+// });
+// Actions.belongsTo(Itineraries);

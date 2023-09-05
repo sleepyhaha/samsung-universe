@@ -1,5 +1,7 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connection");
+const Users = require("./Users");
+
 
 class Actions extends Model { };
 
@@ -12,14 +14,14 @@ Actions.init(
             primaryKey: true,
             autoIncrement: true,
         },
-        // itinerariesId: {
-        //     type: DataTypes.INTEGER,
-        //     allowNull: false,
-        //     references: {
-        //         model: "itineraries",
-        //         key: "id",
-        //     },
-        // },
+        userId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            references: {
+                model: Users,
+                key: "id",
+            },
+        },
         title: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -28,36 +30,16 @@ Actions.init(
             type: DataTypes.STRING,
             allowNull: false,
         },
-        source_link: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        image_01_link: {
+        image: {
             type: DataTypes.STRING,
             allowNull: true,
         },
-        image_02_link: {
-            type: DataTypes.STRING,
-            allowNull: true,
-        },
-        image_03_link: {
-            type: DataTypes.STRING,
-            allowNull: true,
-        },
-        image_04_link: {
-            type: DataTypes.STRING,
-            allowNull: true,
-        },
-        image_05_link: {
-            type: DataTypes.STRING,
-            allowNull: true,
-        }
     },
     {
         sequelize,
         freezeTableName: true,
         underscored: false,
-        modelName: "actions",
+        modelName: "Actions",
     }
 
 );

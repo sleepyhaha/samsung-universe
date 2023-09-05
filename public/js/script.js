@@ -99,7 +99,25 @@ function runFetch() {
                             cardDiv.append(submitDiv);
                             submitDiv.classList.add("submit-button")
                             submitDiv.appendChild(saveBtn);
+
+                            //Fetch 
+                            saveBtn.addEventListener("click", function () {
+                                fetch("/api/",
+                                    {
+                                        method: POST,
+                                        title: name,
+                                        content: location,
+                                        image: photo,
+                                        userid: CURRENTUSER
+                                    }).then(function (response) {
+                                        return response.json();
+                                    })
+                                    .then(function (data) {
+                                        console.log(data);
+                                    });
+                            })
                         }
+
                     })
             }
         })
@@ -126,3 +144,4 @@ zooEl.addEventListener("click", function (event) {
     type = "zoo";
     runFetch()
 })
+
