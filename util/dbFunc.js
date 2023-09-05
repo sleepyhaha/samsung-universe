@@ -240,9 +240,16 @@ async function getPasswordByUsername(username) {
 
 async function checkPassword(req) {
 
+    const userData = {
+
+        username: req.username,
+        password: req.password,
+
+    };
+
     const isPassword = await bcrypt.compare(
-        req.password, // compare unhashed user input password
-        await getPasswordByUsername(req.username)); // with hashed password in database
+        userData.password, // compare unhashed user input password
+        await getPasswordByUsername(userData.username)); // with hashed password in database
 
     if (isPassword) return 1;
     else return 0;
