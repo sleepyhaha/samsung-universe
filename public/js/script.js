@@ -135,11 +135,9 @@ function runFetch() {
                 "fa-xl",
                 "absolute",
                 "bottom-6",
-                "right-2",
-
-                "hover:bg-yellow-100",
-                "active:bg-yellow-200"
+                "right-2"
               );
+              saveBtn.style.color = "#000000";
               saveBtn.id = "btn_" + issue.name;
 
               //element appending
@@ -151,12 +149,11 @@ function runFetch() {
               cardDiv.appendChild(ratingDisplay);
               let submitDiv = document.createElement("div");
               cardDiv.append(submitDiv);
-              submitDiv.classList.add(
-                "submit-button",
-                "hover:bg-yellow-100",
-                "active:bg-yellow-200"
-              );
+              submitDiv.classList.add("submit-button");
               submitDiv.appendChild(saveBtn);
+              saveBtn.addEventListener("click", () => {
+                saveBtn.classList.toggle("fa-solid");
+              });
             }
           });
       }

@@ -2063,6 +2063,10 @@ input:checked + .toggle-bg {
   background-color: rgb(253 246 178 / var(--tw-bg-opacity));
 }
 
+.hover\:fill-yellow-100:hover {
+  fill: #FDF6B2;
+}
+
 .hover\:text-blue-600:hover {
   --tw-text-opacity: 1;
   color: rgb(28 100 242 / var(--tw-text-opacity));
@@ -2118,6 +2122,10 @@ input:checked + .toggle-bg {
 .active\:bg-yellow-200:active {
   --tw-bg-opacity: 1;
   background-color: rgb(252 233 106 / var(--tw-bg-opacity));
+}
+
+.active\:fill-yellow-200:active {
+  fill: #FCE96A;
 }
 
 :is(.dark .dark\:border-blue-500) {
