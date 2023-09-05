@@ -21,11 +21,21 @@ router.get("/", (req, res) => {
 
 });
 
+// LOGIN
+
 router.get("/login", (req, res) => {
 
     res.render("login");
 
 });
+
+router.post("/login", async (req, res) => {
+
+    const login = await checkPassword();
+
+});
+
+// CREATE ACCOUNT
 
 router.get("/createaccount", (req, res) => {
 
@@ -39,6 +49,8 @@ router.post("/createuser", async (req, res) => {
     res.json(req.body.username);
 
 });
+
+// ACCOUNT CONFIRMATION
 
 router.get("/accountconfirm", (req, res) => {
 
