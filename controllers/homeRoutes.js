@@ -31,7 +31,10 @@ router.get("/login", (req, res) => {
 
 router.post("/login", async (req, res) => {
 
-    const login = await checkPassword();
+    const login = await checkPassword(req.body);
+
+    if (login === 0) { res.status(400).json(); }
+    else if (login === 1) { res.status(200).json(); }
 
 });
 
