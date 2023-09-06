@@ -3,12 +3,12 @@ const Itineraries = require("./Itineraries");
 const Actions = require("./Actions");
 
 Users.hasMany(Actions, {
-    foreignKey: 'id',
+    foreignKey: 'username',
     onDelete: 'CASCADE',
 });
 
 Actions.belongsTo(Users, {
-    foreignKey: 'id',
+    foreignKey: 'username',
     onDelete: 'CASCADE',
 });
 

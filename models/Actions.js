@@ -14,12 +14,12 @@ Actions.init(
             primaryKey: true,
             autoIncrement: true,
         },
-        userId: {
+        account: {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
                 model: Users,
-                key: "id",
+                key: "username",
             },
         },
         title: {

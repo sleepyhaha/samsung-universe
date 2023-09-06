@@ -8,7 +8,7 @@ const { Actions, Itineraries, Users } = require('../../models');
 router.get('/', (req, res) => {
     Actions.findAll({
         where: {
-            userId: loggedInId
+            username: req.session.username
         }
     }).then((data) => {
         res.json(data);
@@ -36,10 +36,8 @@ router.post('/', (req, res) => {
     Actions.create({
         title: req.body.title,
         content: req.body.content,
-        image: req.body.image_01_link,
-        where: {
-            userId: loggedInId
-        }
+        image: req.body.image,
+        account: req.body.account
     })
         .then((newAction) => {
             res.json(newAction);
@@ -48,3 +46,5 @@ router.post('/', (req, res) => {
             res.json(err);
         });
 });
+
+module.exports = router;
