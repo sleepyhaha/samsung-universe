@@ -155,6 +155,37 @@ function runFetch() {
                             saveBtn.addEventListener("click", () => {
                                 saveBtn.classList.toggle("fa-solid");
                             });
+
+                            //POST Request
+                            saveBtn.addEventListener("click", function () {
+
+                                let data = {
+                                    title: name,
+                                    content: location,
+                                    image: photo,
+                                    account: "o"
+                                };
+                                console.log(data)
+
+                                fetch("http://localhost:3001/api/", {
+                                    mode: 'no-cors',
+                                    method: "POST",
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({
+                                        data
+                                    })
+                                })
+                                    .then((data) => {
+                                        console.log('Successful POST request:', data);
+                                        return data;
+                                    })
+                                    .catch((error) => {
+                                        console.error('Error in POST request:', error);
+                                    });
+                            })
+
                         }
                     });
             }
