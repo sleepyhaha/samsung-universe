@@ -25,6 +25,8 @@ The acceptance criteria of this project were as follows:
 
 ## Deployed Application
 The deployed application can be viewed from the following link: <https://samsung-universe-001f412ec000.herokuapp.com/>.
+If in future the deployed link is not in function, you can view a short walkthrough video of the application at the following link: <https://drive.google.com/file/d/1g1u6jxk0A69UQaup3chteWjUFOt8PabX/view>.
+Alternatively, this walkthrough video can be downloaded from the `assets` folder of this repo.
 
 ## Usage
 
