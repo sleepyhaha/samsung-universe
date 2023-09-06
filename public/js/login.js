@@ -22,7 +22,7 @@ userSubmit.addEventListener("click", async () => {
     });
 
     if (login.status === 200) window.location.href = "/";
+    if (login.status === 203) window.location.href = "/accountconfirm";
     if (login.status === 400) alert("Wrong username or password. Please try again.");
-    else window.location.href = "/";
 
 });

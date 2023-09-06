@@ -8,6 +8,8 @@ let nightEl = document.querySelector("#nightlifeBtn");
 let sightsEl = document.querySelector("#sightsBtn");
 let zooEl = document.querySelector("#zooBtn");
 
+// const dotenv = require("dotenv");
+
 //Get user location
 submitEl.addEventListener("click", function (event) {
     event.preventDefault();
@@ -28,8 +30,8 @@ function runFetch() {
     console.log(type);
     fetch(
         "https://maps.googleapis.com/maps/api/geocode/json?address=" +
-        userLocation + "&key=AIzaSyDs00mT6NOOoam0gYfRl40xvUX51vedBqk"
-
+        userLocation +
+        "&key=AIzaSyDs00mT6NOOoam0gYfRl40xvUX51vedBqk"
     )
         .then(function (response) {
             console.log(userLocation);
@@ -81,73 +83,82 @@ function runFetch() {
                                 "&sensor=false&key=AIzaSyDs00mT6NOOoam0gYfRl40xvUX51vedBqk";
 
                             //element creation
-                            var img = document.createElement("img");
+                            let img = document.createElement("img");
                             img.src = photo;
-                            var nameDisplay = document.createElement("ul");
+                            img.classList.add("h-48", "w-40", "m-auto", "rounded-lg");
+
+                            let nameDisplay = document.createElement("ul");
                             nameDisplay.innerText = name;
-                            nameDisplay.classList.add("location-title");
-                            var locationDisplay = document.createElement("ul");
-                            locationDisplay.innerText = "Location: " + location;
-                            locationDisplay.classList.add("location-address");
-                            var ratingDisplay = document.createElement("ul");
+                            nameDisplay.classList.add(
+                                "location-title",
+                                "text-center",
+                                "text-sm",
+                                "font-bold",
+                                "py-2"
+                            );
+
+                            let locationDisplay = document.createElement("ul");
+                            locationDisplay.innerText = location;
+                            locationDisplay.classList.add(
+                                "location-address",
+                                "text-sm",
+                                "ml-2"
+                            );
+
+                            let ratingDisplay = document.createElement("ul");
                             ratingDisplay.innerText = "Rating: " + rating;
-                            ratingDisplay.classList.add("location-rating");
-                            var imgDiv = document.createElement("div");
+                            ratingDisplay.classList.add(
+                                "location-rating",
+                                "text-sm",
+                                "absolute",
+                                "bottom-3",
+                                "ml-2"
+                            );
+
+                            let imgDiv = document.createElement("div");
                             imgDiv.classList.add("img-div");
-                            var cardDiv = document.createElement("div");
+
+                            let cardDiv = document.createElement("div");
                             cardDiv.id = "div_" + issue.name;
-                            cardDiv.classList.add("card-whole");
-                            var saveBtn = document.createElement("button");
-                            saveBtn.textContent = "Save to your To Do List";
-                            saveBtn.classList.add("save");
+                            cardDiv.classList.add(
+                                "card-whole",
+                                "h-80",
+                                "w-64",
+                                "relative",
+                                "mb-5"
+                            );
+
+                            let saveBtn = document.createElement("button");
+                            saveBtn.classList.add(
+                                "save",
+                                "fa-regular",
+                                "fa-star",
+                                "fa-xl",
+                                "absolute",
+                                "bottom-6",
+                                "right-2"
+                            );
+                            saveBtn.style.color = "#000000";
                             saveBtn.id = "btn_" + issue.name;
 
                             //element appending
                             resultsEl.append(cardDiv);
-                            cardDiv.appendChild(nameDisplay);
                             cardDiv.append(imgDiv);
                             imgDiv.appendChild(img);
+                            imgDiv.appendChild(nameDisplay);
                             cardDiv.appendChild(locationDisplay);
                             cardDiv.appendChild(ratingDisplay);
-                            var submitDiv = document.createElement("div");
+                            let submitDiv = document.createElement("div");
                             cardDiv.append(submitDiv);
                             submitDiv.classList.add("submit-button");
                             submitDiv.appendChild(saveBtn);
-
-                            //Fetch 
-
-                            saveBtn.addEventListener("click", function () {
-
-                                let data = {
-                                    title: name,
-                                    content: location,
-                                    image: photo,
-                                    account: "o"
-                                };
-                                console.log(data)
-
-                                fetch("http://localhost:3001/api/", {
-                                    mode: 'no-cors',
-                                    method: "POST",
-                                    headers: {
-                                        'Content-Type': 'application/json',
-                                    },
-                                    body: JSON.stringify({
-                                        data
-                                    })
-                                })
-                                    .then((data) => {
-                                        console.log('Successful POST request:', data);
-                                        return data;
-                                    })
-                                    .catch((error) => {
-                                        console.error('Error in POST request:', error);
-                                    });
-                            })
+                            saveBtn.addEventListener("click", () => {
+                                saveBtn.classList.toggle("fa-solid");
+                            });
                         }
                     });
             }
-        })
+        });
 }
 
 casinoEl.addEventListener("click", function (event) {
