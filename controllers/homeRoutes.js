@@ -13,10 +13,16 @@ const {
 
 } = require("../util/dbFunc");
 
+const {
+
+    log_loginAttempt,
+    log_readLog,
+
+} = require("../util/log");
+
 // PATH: localhost/
 
 router.get("/", (req, res) => {
-
 
     const sessionData = {
         username: req.session.username,
@@ -75,6 +81,8 @@ router.post("/login", async (req, res) => {
 
     }
 
+    log_loginAttempt(req, login);
+
 });
 
 // LOGOUT
@@ -116,6 +124,14 @@ router.post("/accountconfirm", async (req, res) => {
 
     if (correctCode) { res.status(200).json(); }
     else { res.status(400).json(); }
+
+});
+
+// BACKEND LOGGER
+
+router.get("/api/loginattempts", async (req, res) => {
+
+    res.json(await log_readLog());
 
 });
 
