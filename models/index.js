@@ -1,6 +1,7 @@
 const Users = require("./Users");
 const Itineraries = require("./Itineraries");
 const Actions = require("./Actions");
+const log_loginAttempt = require("./log_loginAttempt");
 
 Users.hasMany(Actions, {
     foreignKey: 'username',
