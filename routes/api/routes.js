@@ -1,6 +1,6 @@
 
 const router = require('express').Router();
-const { Actions, Itineraries, Users } = require('../../models');
+const { Actions } = require('../../models/');
 
 
 //Shows user's saved places of interest
@@ -8,36 +8,24 @@ const { Actions, Itineraries, Users } = require('../../models');
 router.get('/', (req, res) => {
     Actions.findAll({
         where: {
-            username: req.session.username
+            username: 1
         }
     }).then((data) => {
         res.json(data);
     });
 });
 
-//Saves itinerary
-// router.post('/', (req, res) => {
-//     Itineraries.create({
-//         depart_date: req.body.depart_date,
-//         return_date: req.body.return_date,
-//         depart_location: req.body.depart_location,
-//         arrival_location: req.body.arrival_location,
-//     })
-//         .then((newAction) => {
-//             res.json(newAction);
-//         })
-//         .catch((err) => {
-//             res.json(err);
-//         });
-// });
 
 //Saves Action
 router.post('/', (req, res) => {
     Actions.create({
+        id: req.body.id,
         title: req.body.title,
         content: req.body.content,
         image: req.body.image,
-        account: req.body.account
+        account: req.body.image,
+        createdAt: req.body.createdAt,
+        updatedAt: req.body.updatedAt
     })
         .then((newAction) => {
             res.json(newAction);

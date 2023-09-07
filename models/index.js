@@ -16,3 +16,8 @@ Actions.belongsTo(Users, {
 //     // foreignKey: "itinerariesId"
 // });
 // Actions.belongsTo(Itineraries);
+
+module.exports = {
+    Actions,
+    Users
+}
