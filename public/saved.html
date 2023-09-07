@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="./css/output.css">
-    <title>Day Planner</title>
     <script src="https://kit.fontawesome.com/ee121fe568.js" crossorigin="anonymous"></script>
     <title>Day Planner</title>
 </head>
@@ -21,8 +20,9 @@
         </nav>
     </header>
     <main class="top-52 relative flex flex-col w-full items-center">
-        <h1 class="text-2xl font-extrabold">Your saved itineraries</h1>
-        <table class="w-3/4 mt-7 table-fixed">
+        <h1 class="text-2xl font-extrabold spacer">Your saved places:</h1>
+        <div id="results"></div>
+        <!-- <table class="w-3/4 mt-7 table-fixed">
             <thead>
                 <tr>
                     <th id="destination" class="border-r text-center"> Destination </th>
@@ -38,9 +38,9 @@
                 <tr>
                 </tr>
             </tbody>
-        </table>
+        </table> -->
     </main>
-
+    <script src="./js/saved.js"></script>
     <script src="../node_modules/flowbite/dist/flowbite.min.js"></script>
     <script src="../node_modules/flowbite/dist/datepicker.js"></script>
 
