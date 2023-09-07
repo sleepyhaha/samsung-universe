@@ -3,7 +3,6 @@ const session = require('express-session');
 const exphbs = require("express-handlebars");
 const sequelize = require("./config/connection.js"); //SQL connection
 const path = require("path");
-const routes = require('./routes');
 const bodyParser = require('body-parser');
 const cors = require("cors");
 
