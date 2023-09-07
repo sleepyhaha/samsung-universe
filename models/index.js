@@ -3,15 +3,15 @@ const Itineraries = require("./Itineraries");
 const Actions = require("./Actions");
 const log_loginAttempt = require("./log_loginAttempt");
 
-Users.hasMany(Actions, {
-    foreignKey: 'username',
-    onDelete: 'CASCADE',
-});
+// Users.hasMany(Actions, {
+//     foreignKey: 'id',
+//     onDelete: 'CASCADE',
+// });
 
-Actions.belongsTo(Users, {
-    foreignKey: 'username',
-    onDelete: 'CASCADE',
-});
+// Actions.belongsTo(Users, {
+//     foreignKey: 'id',
+//     onDelete: 'CASCADE',
+// });
 
 // Itineraries.hasMany(Actions, {
 //     // foreignKey: "itinerariesId"

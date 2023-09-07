@@ -8,8 +8,6 @@ let nightEl = document.querySelector("#nightlifeBtn");
 let sightsEl = document.querySelector("#sightsBtn");
 let zooEl = document.querySelector("#zooBtn");
 
-// const dotenv = require("dotenv");
-
 //Get user location
 submitEl.addEventListener("click", function (event) {
     event.preventDefault();
@@ -163,27 +161,24 @@ function runFetch() {
                                     title: name,
                                     content: location,
                                     image: photo,
-                                    account: "o"
+                                    createdAt: "2008-11-11 13:23:44",
+                                    updatedAt: "2008-11-11 13:23:44"
                                 };
                                 console.log(data)
 
                                 fetch("http://localhost:3001/api/", {
-                                    mode: 'no-cors',
+                                    mode: 'cors',
                                     method: "POST",
                                     headers: {
                                         'Content-Type': 'application/json',
+                                        // 'Access-Control-Allow-Origin': '*',
+
                                     },
-                                    body: JSON.stringify({
-                                        data
-                                    })
+                                    body: JSON.stringify(data)
                                 })
-                                    .then((data) => {
-                                        console.log('Successful POST request:', data);
-                                        return data;
-                                    })
-                                    .catch((error) => {
-                                        console.error('Error in POST request:', error);
-                                    });
+                                    .then(resp => resp.json())
+                                    .then(data => { console.log(data) })
+                                    .catch(err => { console.log(err) });
                             })
 
                         }

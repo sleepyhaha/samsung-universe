@@ -14,14 +14,6 @@ Actions.init(
             primaryKey: true,
             autoIncrement: true,
         },
-        account: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            references: {
-                model: Users,
-                key: "username",
-            },
-        },
         title: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -31,7 +23,7 @@ Actions.init(
             allowNull: false,
         },
         image: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT('long'),
             allowNull: true,
         },
     },
