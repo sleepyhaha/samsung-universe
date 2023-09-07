@@ -3,7 +3,7 @@ const session = require('express-session');
 const exphbs = require("express-handlebars");
 const sequelize = require("./config/connection.js"); //SQL connection
 const path = require("path");
-const routes = require('./routes');
+// const routes = require('./routes');
 const bodyParser = require('body-parser');
 const cors = require("cors");
 
@@ -23,7 +23,7 @@ const corsOptions = {
 }
 server.use(cors(corsOptions))
 
-server.use(routes)
+// server.use(routes)
 
 // SETUP express-session
 server.use(session({
@@ -42,7 +42,7 @@ server.set("view engine", "handlebars");
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 server.use(express.static(path.join(__dirname, "public")));
-server.use(routes)
+// server.use(routes)
 
 
 
