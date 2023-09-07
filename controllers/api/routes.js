@@ -1,6 +1,6 @@
 
 const router = require('express').Router();
-const { Actions } = require('../../models/');
+const { Actions } = require('../../models');
 
 
 //Shows user's saved places of interest
