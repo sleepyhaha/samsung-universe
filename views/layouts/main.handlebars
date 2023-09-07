@@ -15,46 +15,12 @@
     <a href="/" class="text-5xl font-bold">
       AirItinerary
     </a>
-        <nav class="float-right">
-            <button id="dropdownInformationButton" data-dropdown-toggle="dropdownInformation"
-                class="text-white bg-sky-300 hover:bg-sky-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
-                type="button"> <i class="fa-solid fa-caret-down fa-2xl"></i>
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="m1 1 4 4 4-4" />
-                </svg>
-            </button>
-            <!-- Dropdown menu -->
-              <div id="dropdownInformation"
-                class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
-            
-            {{#if sessionData.loggedIn}}
-                <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
-                    <div>{{ sessionData.username }}</div>
-                    <div class="font-medium truncate">{{ sessionData.email }}</div>
-                </div>
-                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformationButton">
-                    <li>
-                        <a href="/saved"
-                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Saved
-                            Itineraries</a>
-                    </li>
-                </ul>
-                <div class="py-2">
-                    <a href="/logout"
-                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Log
-                        out</a>
-                </div>
-            </div>
-            {{else}}
-                            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformationButton">
-                    <li>
-                        <a href="/login"
-                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Log
-                            in</a>
-                    </li>
-                </ul>
-          {{/if}}
-        </nav>
+    {{#if sessionData.loggedIn}}
+    <p class="float-left">Logged in as: {{ sessionData.username }} <a href="/logout">(log-out)</a></p>
+    {{/if}}
+    <a href="/login" class="float-right">
+      <i class="fa-solid fa-circle-user fa-2xl"></i>
+    </a>
   </header>
   
   {{{body}}}
@@ -66,3 +32,5 @@
   </body>
 
 
+
+</html>
